@@ -1,11 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Cart from './src/pages/Cart';
+import Confirmation from './src/pages/Confirmation';
+import Login from './src/pages/Login';
+import Payment from './src/pages/Payment';
+import Products from './src/pages/Products';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
+      {/* <Login /> */}
+      {/* <Products /> */}
+      {/* <Cart /> */}
+      {/* <Payment /> */}
+      <Confirmation />
     </View>
   );
 }
