@@ -1,29 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Cart from './src/pages/Cart';
-import Confirmation from './src/pages/Confirmation';
-import Login from './src/pages/Login';
-import Payment from './src/pages/Payment';
-import Products from './src/pages/Products';
+import Navigation from './src/navigation';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCR2oW0uaj7sMYGOMV6e0zg8fTPZLpWuUg",
+  authDomain: "sell-now-7c9a5.firebaseapp.com",
+  projectId: "sell-now-7c9a5",
+  storageBucket: "sell-now-7c9a5.appspot.com",
+  messagingSenderId: "720102021423",
+  appId: "1:720102021423:web:96f31f92968477c2afe9da",
+  measurementId: "G-9HN1J0904W"
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      {/* <Login /> */}
-      {/* <Products /> */}
-      {/* <Cart /> */}
-      {/* <Payment /> */}
-      <Confirmation />
-    </View>
-  );
+
+  const app = initializeApp(firebaseConfig);
+  //const analytics = getAnalytics(app);
+
+  return (<Navigation />);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

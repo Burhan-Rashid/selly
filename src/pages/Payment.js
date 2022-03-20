@@ -4,16 +4,19 @@ import { GlobalStyles } from "../themes/styles";
 import { hp } from "../themes/sizes";
 import { Gradients, Colors } from "../themes/colors";
 import { LinearGradient } from 'expo-linear-gradient';
-import MonthPicker from 'react-native-month-year-picker';
+import { NavigationContainer } from '@react-navigation/native';
 
-function Payment() {
+function Payment({ navigation }) {
     const [cardType, setCardType] = React.useState("Debit Card");
     const [number, setNumber] = React.useState("");
     const [expiry, setExpiry] = React.useState("");
     const [cvv, setCvv] = React.useState("");
 
-    const handleLogin = () => {
-        console.log(cardType, number, expiry, cvv)
+    const handlePayment = () => {
+        if (cardType === "" || number === "" || expiry === "" || cvv === "") {
+            return alert("Please fill all the fields!")
+        }
+        navigation.navigate("Confirmation")
     }
     const handleExpiry = (e) => {
         setExpiry(e)
@@ -64,7 +67,7 @@ function Payment() {
 
             </View>
 
-            <TouchableOpacity onPress={handleLogin} style={styles.button}>
+            <TouchableOpacity onPress={handlePayment} style={styles.button}>
                 <Text style={[styles.text, { textAlign: "center" }]}>
                     Pay Now
                 </Text>
@@ -76,7 +79,7 @@ function Payment() {
 const styles = StyleSheet.create({
     Input: {
         height: 40,
-        fontSize: 18,
+        fontSize: 16,
         borderWidth: 1,
         marginTop: 10,
         borderRadius: 10,
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
 
     }, cvv: {
         height: 40,
-        fontSize: 18,
+        fontSize: 16,
 
         borderWidth: 1,
         marginTop: 10,
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     },
     expiry: {
         height: 40,
-        fontSize: 18,
+        fontSize: 16,
         borderWidth: 1,
         marginTop: 10,
         borderRadius: 10,
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     text: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "bold",
         width: "100%"
     },

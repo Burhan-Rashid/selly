@@ -6,15 +6,15 @@ import { Gradients, Colors } from "../themes/colors";
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const CartItem = ({ productName, productPrice, image }) => {
+const CartItem = ({ productName, productPrice, image, handleRemoveItem }) => {
     return (
         <View style={styles.container}>
             <Image source={{ uri: image }} alt="product..." style={styles.image} />
             <View style={styles.description}>
                 <Text style={styles.text}>{productName}</Text>
-                <Text style={styles.text}>Price: {productPrice}</Text>
+                <Text style={styles.text}>Price: ${productPrice}</Text>
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={handleRemoveItem}>
                 <Icon name="delete" size={30} />
             </TouchableOpacity>
         </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly"
     },
     text: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "bold",
     },
     button: {

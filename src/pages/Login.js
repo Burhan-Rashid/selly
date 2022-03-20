@@ -5,13 +5,22 @@ import { hp } from "../themes/sizes";
 import { Gradients, Colors } from "../themes/colors";
 import { LinearGradient } from 'expo-linear-gradient';
 
-function Login() {
+function Login({ navigation }) {
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     const handleLogin = () => {
-        console.log(email, password)
+        if (email === "" || password === "") {
+            alert("Please enter your email and password first!")
+            return;
+        }
+        console.log(email, password);
+        if (email.trim() === "test@gmail.com" && password.trim() === "123456") {
+            navigation.navigate("Products")
+        } else {
+            return alert("Please enter a valid email and password!")
+        }
     }
 
     return (
@@ -73,8 +82,8 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: Colors.DEEP_TEAL,
-        height: 40,
-        width: "100%",
+        height: 50,
+        width: "40%",
         marginTop: 10,
         borderRadius: 10,
         justifyContent: "center",

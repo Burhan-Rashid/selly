@@ -8,21 +8,22 @@ import { Gradients, Colors } from "../themes/colors";
 import { LinearGradient } from 'expo-linear-gradient';
 import Product from '../components/Product';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const PRODUCTS = [
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
-    { image: "https://picsum.photos/200/300", name: "Lenovo p32-30 monitor", price: "$789" },
+    { image: "https://i.pcmag.com/imagery/roundups/02naaOkVLe7DIiejFUyDPJp-31.fit_lim.size_1050x.jpg", name: "Macbook Pro", price: "$1599" },
+    { image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.large.jpg", name: "Iphone 12", price: "$789" },
+    { image: "https://i.rtings.com/assets/products/wZBvFZvM/keychron-k2-version-2/design-medium.jpg", name: "Keychron k2", price: "$359" },
+    { image: "https://photos5.appleinsider.com/gallery/31493-52775-dell-UP3218K-8k-monitor-xl.jpg", name: "Dell p32 Monitor", price: "$239" },
+    { image: "https://images.samsung.com/in/smartphones/galaxy-s21/buy/s21_family_kv_mo_img.jpg", name: "samsung s10", price: "$699" },
+    { image: "https://www.zdnet.com/a/img/resize/779cf562c906bbc41229173884c9eab696d0e07e/2022/02/09/05cd63e5-bb23-40e9-a08c-6cdb3334a077/best-samsung-phone-gettyimages-1238324602.jpg?width=1200&fit=bounds&auto=webp", name: "Note 10+", price: "$889" },
 ]
 
-export default function Confirmation() {
+export default function Confirmation({ navigation }) {
+
+    const items = useSelector((state) => state.cartReducer.selectedItems)
+    const dispatch = useDispatch();
 
     const [showModal, setShowModal] = React.useState(false)
 
@@ -30,7 +31,18 @@ export default function Confirmation() {
         let timerId = setTimeout(() => {
             setShowModal(true);
         }, 5000)
+        return () => {
+            clearTimeout(timerId)
+        }
     }, [])
+
+    const handleModal = () => {
+        setShowModal(!showModal);
+        dispatch({
+            type: "EMPTY_CART",
+        })
+        navigation.navigate("Products")
+    }
 
 
 
@@ -40,21 +52,33 @@ export default function Confirmation() {
                 <Text style={styles.text}>Order Confirmation</Text>
             </View>
             <ScrollView style={{ flex: 1, width: "100%", paddingHorizontal: 5 }} contentContainerStyle={styles.scrollview}>
-                {PRODUCTS.map((product, index) => {
+                {items.items.map((product, index) => {
                     return <View key={index} style={styles.productContainer} >
                         <Text>{product.name}</Text>
-                        <Text>{product.price}</Text>
+                        <Text>${product.price}</Text>
                     </View>
                 })}
+
+                <View style={styles.details}>
+                    <View style={styles.bottomContainer}>
+                        <Text>
+                            Total Amount Paid:
+                        </Text>
+                        <Text>
+                            ${items.totalPrice}
+                        </Text>
+                    </View>
+                    <View style={styles.bottomContainer}>
+                        <Text>
+                            Order Id:
+                        </Text>
+                        <Text>
+                            178542369452
+                        </Text>
+                    </View>
+                </View>
             </ScrollView>
-            <View style={styles.details}>
-                <Text>
-                    Total Amount Paid: $1909
-                </Text>
-                <Text>
-                    Order Id: 178542369452
-                </Text>
-            </View>
+
             {/* <TouchableOpacity style={styles.checkout}>
                 <Text style={{ color: "white", fontWeight: "800", fontSize: 16, width: "100%", textAlign: "center" }}>Go To Home</Text>
             </TouchableOpacity> */}
@@ -73,7 +97,7 @@ export default function Confirmation() {
                         <Text style={styles.modalText}>Thanks For Shopping</Text>
                         <TouchableOpacity
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => setShowModal(!showModal)}
+                            onPress={handleModal}
                         >
                             <Text style={styles.textStyle}>Continue Shopping</Text>
                         </TouchableOpacity>
@@ -140,7 +164,9 @@ const styles = StyleSheet.create({
 
     },
     details: {
-        flex: 1
+        flex: 1,
+        borderTopWidth: 1,
+        marginTop: 10
     },
     productContainer: {
         flexDirection: "row",
@@ -183,5 +209,9 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         position: "absolute",
         bottom: 10
+    },
+    bottomContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between"
     }
 })

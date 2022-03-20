@@ -5,16 +5,19 @@ import { hp } from "../themes/sizes";
 import { Gradients, Colors } from "../themes/colors";
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Product = ({ productName, productPrice, image }) => {
+const Product = ({ productName, productPrice, image, handleProduct }) => {
     return (
         <View style={styles.container}>
             <Image source={{ uri: image }} alt="product..." style={styles.image} />
             <View style={styles.description}>
                 <Text style={styles.text}>{productName}</Text>
-                <Text style={styles.text}>Price: {productPrice}</Text>
+                <View style={styles.priceContainer}>
+                    <Text style={styles.text}>Price:</Text>
+                    <Text style={styles.text}>${productPrice}''</Text>
+                </View>
             </View>
-            <TouchableOpacity style={styles.button}>
-                <Text style={{ width: "100%", textAlign: "center", fontSize: 18 }}>Add to Cart</Text>
+            <TouchableOpacity style={styles.button} onPress={handleProduct}>
+                <Text style={{ width: "100%", textAlign: "center", fontSize: 16 }}>Add to Cart</Text>
             </TouchableOpacity>
         </View>
     )
@@ -43,15 +46,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     text: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "bold",
+    },
+    priceContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     button: {
         flex: 1,
         backgroundColor: Colors.DEEP_TEAL,
         width: "100%",
         marginTop: 10,
-        borderRadius: 10,
+        //borderBottomRightRadius: 10,
         justifyContent: "center",
         alignItems: "center",
         fontSize: 20,
