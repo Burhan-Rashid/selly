@@ -4,6 +4,7 @@ import { Colors } from "../themes/colors";
 import Product from '../components/Product';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-toast-message'
 
 const PRODUCTS = [
     { image: "https://i.pcmag.com/imagery/roundups/02naaOkVLe7DIiejFUyDPJp-31.fit_lim.size_1050x.jpg", name: "Macbook Pro", price: 1599 },
@@ -31,6 +32,11 @@ function Products({ navigation }) {
                 item: PRODUCTS[index],
             }
         })
+
+        Toast.show({
+            type: 'info',
+            text1: 'Item successfully added to the cart!'
+        });
     }
 
     return (
@@ -51,6 +57,10 @@ function Products({ navigation }) {
                     return <Product key={index} image={product.image} productName={product.name} productPrice={product.price} handleProduct={() => handleAddProduct(index)} />
                 })}
             </ScrollView>
+            <Toast
+                position='bottom'
+                bottomOffset={20}
+            />
         </SafeAreaView>
     )
 }
