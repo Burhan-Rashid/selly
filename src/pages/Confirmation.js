@@ -13,7 +13,7 @@ export default function Confirmation({ navigation }) {
     React.useEffect(() => {
         let timerId = setTimeout(() => {
             setShowModal(true);
-        }, 5000)
+        }, 4000)
         return () => {
             clearTimeout(timerId)
         }
