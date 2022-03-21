@@ -1,7 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, SafeAreaView } from 'react-native';
-import { GlobalStyles } from "../themes/styles";
-import { hp } from "../themes/sizes";
 import { Gradients, Colors } from "../themes/colors";
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -12,11 +10,9 @@ function Login({ navigation }) {
 
     const handleLogin = () => {
         if (email === "" || password === "") {
-            alert("Please enter your email and password first!")
-            return;
+            return alert("Please enter your email and password first!")
         }
-        console.log(email, password);
-        if (email.trim() === "test@gmail.com" && password.trim() === "123456") {
+        if (email.trim().toLowerCase() === "test@gmail.com" && password.trim() === "123456") {
             navigation.navigate("Products")
         } else {
             return alert("Please enter a valid email and password!")
@@ -70,15 +66,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 10,
         padding: 5,
+        paddingHorizontal: 10,
         width: "100%"
-
     },
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-
     },
     button: {
         backgroundColor: Colors.DEEP_TEAL,
@@ -100,7 +95,6 @@ const styles = StyleSheet.create({
         color: Colors.WHITE,
         width: "100%",
         textAlign: "center",
-
     },
     gradient: {
         width: "100%",

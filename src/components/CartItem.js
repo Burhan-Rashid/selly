@@ -1,9 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, SafeAreaView, Image } from 'react-native';
-import { GlobalStyles } from "../themes/styles";
-import { hp } from "../themes/sizes";
-import { Gradients, Colors } from "../themes/colors";
-import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { Colors } from "../themes/colors";
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const CartItem = ({ productName, productPrice, image, handleRemoveItem }) => {

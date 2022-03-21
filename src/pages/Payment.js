@@ -1,10 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, SafeAreaView, Picker } from 'react-native';
-import { GlobalStyles } from "../themes/styles";
-import { hp } from "../themes/sizes";
-import { Gradients, Colors } from "../themes/colors";
-import { LinearGradient } from 'expo-linear-gradient';
-import { NavigationContainer } from '@react-navigation/native';
+import { Colors } from "../themes/colors";
 
 function Payment({ navigation }) {
     const [cardType, setCardType] = React.useState("Debit Card");
@@ -18,9 +14,6 @@ function Payment({ navigation }) {
         }
         navigation.navigate("Confirmation")
     }
-    const handleExpiry = (e) => {
-        setExpiry(e)
-    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -30,12 +23,13 @@ function Payment({ navigation }) {
 
             <Picker
                 selectedValue={cardType}
-                style={{ height: 40, width: "100%", marginTop: 10 }}
+                style={styles.picker}
                 onValueChange={(itemValue, itemIndex) => setCardType(itemValue)}
             >
                 <Picker.Item label="Debit Card" value="Debit Card" />
                 <Picker.Item label="Credit Card" value="Credit Card" />
             </Picker>
+
             <TextInput
                 placeholder="Card Number"
                 placeholderTextColor={Colors.DARK_GREY}
@@ -63,8 +57,7 @@ function Payment({ navigation }) {
                     autoCapitalize={"none"}
                     value={expiry}
                     maxLength={4}
-                    onChangeText={handleExpiry} />
-
+                    onChangeText={(t) => { setExpiry(t) }} />
             </View>
 
             <TouchableOpacity onPress={handlePayment} style={styles.button}>
@@ -72,7 +65,6 @@ function Payment({ navigation }) {
                     Pay Now
                 </Text>
             </TouchableOpacity>
-
         </SafeAreaView >
     )
 }
@@ -85,18 +77,20 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 5,
         width: "100%"
-
-    }, cvv: {
+    },
+    picker: {
+        height: 40,
+        width: "100%",
+        marginTop: 10
+    },
+    cvv: {
         height: 40,
         fontSize: 16,
-
         borderWidth: 1,
         marginTop: 10,
         borderRadius: 10,
         padding: 5,
         width: "40%"
-
-
     },
     cvvContainer: {
         justifyContent: "space-between",
@@ -113,17 +107,12 @@ const styles = StyleSheet.create({
         width: "58%",
         marginLeft: 5
     },
-    button2: {
-        width: "60%",
-        textAlign: "center",
-    },
     container: {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
         width: "100%",
         paddingHorizontal: 10,
-
     },
     button: {
         backgroundColor: Colors.DEEP_TEAL,
@@ -141,19 +130,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         width: "100%"
     },
-    Heading: {
-        fontSize: 24,
-        fontWeight: "bold",
-        width: "100%",
-        textAlign: "center",
-
-    },
-    gradient: {
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -162,8 +138,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         height: 60,
         marginTop: 20,
-        // borderWidth: 1,
-        // borderColor: "#000",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -173,7 +147,6 @@ const styles = StyleSheet.create({
         shadowRadius: 16.00,
         elevation: 24,
         backgroundColor: Colors.SOFT_GREY
-
     },
 });
 

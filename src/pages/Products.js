@@ -1,12 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, SafeAreaView, ScrollView } from 'react-native';
-import { GlobalStyles } from "../themes/styles";
-import { hp } from "../themes/sizes";
-import { Gradients, Colors } from "../themes/colors";
-import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView, ScrollView } from 'react-native';
+import { Colors } from "../themes/colors";
 import Product from '../components/Product';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { useDispatch, useSelector } from 'react-redux';
 
 const PRODUCTS = [
@@ -22,12 +18,13 @@ function Products({ navigation }) {
 
     const dispatch = useDispatch();
     const items = useSelector((state) => state.cartReducer.selectedItems);
-    //console.log(items)
+
+
     const handleCart = () => {
         navigation.navigate("Cart")
     }
 
-    const handleProduct = (index) => {
+    const handleAddProduct = (index) => {
         dispatch({
             type: "ADD_TO_CART",
             payload: {
@@ -49,9 +46,9 @@ function Products({ navigation }) {
                     <Icon name="shoppingcart" size={41} />
                 </TouchableOpacity>
             </View>
-            <ScrollView style={{ flex: 1, width: "100%", paddingHorizontal: 5 }} contentContainerStyle={styles.scrollview}>
+            <ScrollView style={styles.scrollView} >
                 {PRODUCTS.map((product, index) => {
-                    return <Product key={index} image={product.image} productName={product.name} productPrice={product.price} handleProduct={() => handleProduct(index)} />
+                    return <Product key={index} image={product.image} productName={product.name} productPrice={product.price} handleProduct={() => handleAddProduct(index)} />
                 })}
             </ScrollView>
         </SafeAreaView>
@@ -65,6 +62,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: "100%",
         paddingTop: 20,
+    },
+    scrollView: {
+        flex: 1,
+        width: "100%",
+        paddingHorizontal: 5
     },
     cartNumber: {
         height: 25,
@@ -84,8 +86,6 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingHorizontal: 10,
         height: 60,
-        // borderWidth: 1,
-        // borderColor: "#000",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
         shadowRadius: 16.00,
         elevation: 24,
         backgroundColor: Colors.SOFT_GREY
-
     },
     text: {
         fontSize: 18,

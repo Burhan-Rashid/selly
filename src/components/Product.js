@@ -1,9 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, SafeAreaView, Image } from 'react-native';
-import { GlobalStyles } from "../themes/styles";
-import { hp } from "../themes/sizes";
-import { Gradients, Colors } from "../themes/colors";
-import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { Colors } from "../themes/colors";
 
 const Product = ({ productName, productPrice, image, handleProduct }) => {
     return (
@@ -17,7 +14,7 @@ const Product = ({ productName, productPrice, image, handleProduct }) => {
                 </View>
             </View>
             <TouchableOpacity style={styles.button} onPress={handleProduct}>
-                <Text style={{ width: "100%", textAlign: "center", fontSize: 16 }}>Add to Cart</Text>
+                <Text style={styles.text2}>Add to Cart</Text>
             </TouchableOpacity>
         </View>
     )
@@ -49,6 +46,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
     },
+    text2: {
+        width: "100%",
+        textAlign: "center",
+        fontSize: 16
+    },
     priceContainer: {
         flexDirection: "row",
         justifyContent: "space-between"
@@ -58,7 +60,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.DEEP_TEAL,
         width: "100%",
         marginTop: 10,
-        //borderBottomRightRadius: 10,
         justifyContent: "center",
         alignItems: "center",
         fontSize: 20,
